@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -21,8 +21,10 @@
       padding: 16px 24px;
       display: flex;
       align-items: center;
+      justify-content: space-between;
       gap: 10px;
     }
+    .header-left { display: flex; align-items: center; gap: 10px; }
     .header-dot {
       width: 10px; height: 10px;
       border-radius: 50%;
@@ -31,6 +33,29 @@
     }
     .header h1 { font-size: 16px; font-weight: 600; color: #e6edf3; }
     .header span { font-size: 12px; color: #8b949e; margin-left: 4px; }
+    .btn-new-chat {
+      background: transparent;
+      border: 1px solid #30363d;
+      border-radius: 8px;
+      padding: 7px 14px;
+      font-size: 12px;
+      font-weight: 500;
+      color: #8b949e;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+      width: auto;
+      height: auto;
+    }
+    .btn-new-chat:hover {
+      border-color: #1f6feb;
+      color: #e6edf3;
+      background: transparent;
+      transform: none;
+    }
+    .btn-new-chat svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2; }
     .chat-container {
       flex: 1;
       overflow-y: auto;
@@ -153,18 +178,24 @@
 <body>
 
 <div class="header">
-  <div class="header-dot"></div>
-  <h1>SFMC Assistant <span>powered by Claude</span></h1>
+  <div class="header-left">
+    <div class="header-dot"></div>
+    <h1>SFMC Assistant <span>powered by Claude</span></h1>
+  </div>
+  <button class="btn-new-chat" onclick="newChat()">
+    <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    New chat
+  </button>
 </div>
 
 <div class="chat-container" id="chat">
   <div class="welcome" id="welcome">
-    <h2>¡Hola, Santiago! 👋</h2>
-    <p>Soy tu asistente experto en Salesforce Marketing Cloud.<br>Pregúntame lo que necesites.</p>
+    <h2>Hey there! 👋</h2>
+    <p>I'm your Salesforce Marketing Cloud expert assistant.<br>Ask me anything about SFMC.</p>
     <div class="suggestions">
-      <div class="suggestion" onclick="sendSuggestion(this)">¿Qué es AMPscript?</div>
-      <div class="suggestion" onclick="sendSuggestion(this)">Cómo crear un Journey</div>
-      <div class="suggestion" onclick="sendSuggestion(this)">SQL para Data Views</div>
+      <div class="suggestion" onclick="sendSuggestion(this)">What is AMPscript?</div>
+      <div class="suggestion" onclick="sendSuggestion(this)">How to create a Journey</div>
+      <div class="suggestion" onclick="sendSuggestion(this)">SQL for Data Views</div>
       <div class="suggestion" onclick="sendSuggestion(this)">InsertDE vs UpsertDE</div>
     </div>
   </div>
@@ -174,7 +205,7 @@
   <div class="input-row">
     <textarea
       id="input"
-      placeholder="Pregunta algo sobre SFMC..."
+      placeholder="Ask something about SFMC..."
       rows="1"
       onkeydown="handleKey(event)"
       oninput="autoResize(this)"
@@ -202,6 +233,23 @@ function handleKey(e) {
   }
 }
 
+function newChat() {
+  chat.innerHTML = `
+    <div class="welcome" id="welcome">
+      <h2>Hey there! 👋</h2>
+      <p>I'm your Salesforce Marketing Cloud expert assistant.<br>Ask me anything about SFMC.</p>
+      <div class="suggestions">
+        <div class="suggestion" onclick="sendSuggestion(this)">What is AMPscript?</div>
+        <div class="suggestion" onclick="sendSuggestion(this)">How to create a Journey</div>
+        <div class="suggestion" onclick="sendSuggestion(this)">SQL for Data Views</div>
+        <div class="suggestion" onclick="sendSuggestion(this)">InsertDE vs UpsertDE</div>
+      </div>
+    </div>`;
+  input.value = '';
+  input.style.height = 'auto';
+  input.focus();
+}
+
 function removeWelcome() {
   const w = document.getElementById('welcome');
   if (w) w.remove();
@@ -211,7 +259,7 @@ function addMessage(text, role) {
   removeWelcome();
   const div = document.createElement('div');
   div.className = `message ${role}`;
-  const initial = role === 'user' ? 'S' : 'AI';
+  const initial = role === 'user' ? 'U' : 'AI';
   const avClass = role === 'user' ? 'user-av' : 'bot-av';
   div.innerHTML = `
     <div class="avatar ${avClass}">${initial}</div>
@@ -262,7 +310,7 @@ async function sendMessage() {
     addMessage(data.response, 'bot');
   } catch (err) {
     removeTyping();
-    addMessage('Error conectando con el servidor. Verifica que app.py está corriendo.', 'bot');
+    addMessage('Error connecting to server. Please try again.', 'bot');
   }
 
   sendBtn.disabled = false;
