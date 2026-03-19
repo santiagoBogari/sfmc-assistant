@@ -7,7 +7,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-
     body {
       font-family: 'Inter', sans-serif;
       background: #0f1117;
@@ -16,7 +15,6 @@
       display: flex;
       flex-direction: column;
     }
-
     .header {
       background: #161b22;
       border-bottom: 1px solid #30363d;
@@ -31,17 +29,8 @@
       background: #238636;
       box-shadow: 0 0 8px #238636;
     }
-    .header h1 {
-      font-size: 16px;
-      font-weight: 600;
-      color: #e6edf3;
-    }
-    .header span {
-      font-size: 12px;
-      color: #8b949e;
-      margin-left: 4px;
-    }
-
+    .header h1 { font-size: 16px; font-weight: 600; color: #e6edf3; }
+    .header span { font-size: 12px; color: #8b949e; margin-left: 4px; }
     .chat-container {
       flex: 1;
       overflow-y: auto;
@@ -53,19 +42,12 @@
       width: 100%;
       margin: 0 auto;
     }
-
-    .message {
-      display: flex;
-      gap: 12px;
-      animation: fadeIn 0.3s ease;
-    }
+    .message { display: flex; gap: 12px; animation: fadeIn 0.3s ease; }
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(8px); }
       to   { opacity: 1; transform: translateY(0); }
     }
-
     .message.user { flex-direction: row-reverse; }
-
     .avatar {
       width: 32px; height: 32px;
       border-radius: 50%;
@@ -75,7 +57,6 @@
     }
     .avatar.user-av { background: #1f6feb; color: #fff; }
     .avatar.bot-av  { background: #238636; color: #fff; }
-
     .bubble {
       max-width: 70%;
       padding: 12px 16px;
@@ -95,12 +76,7 @@
       border: 1px solid #30363d;
       border-radius: 4px 12px 12px 12px;
     }
-
-    .typing {
-      display: flex; gap: 4px;
-      align-items: center;
-      padding: 14px 16px;
-    }
+    .typing { display: flex; gap: 4px; align-items: center; padding: 14px 16px; }
     .typing span {
       width: 8px; height: 8px;
       border-radius: 50%;
@@ -113,7 +89,6 @@
       0%, 60%, 100% { transform: translateY(0); }
       30%           { transform: translateY(-6px); }
     }
-
     .input-area {
       background: #161b22;
       border-top: 1px solid #30363d;
@@ -144,7 +119,6 @@
     }
     textarea:focus { border-color: #1f6feb; }
     textarea::placeholder { color: #484f58; }
-
     button {
       width: 48px; height: 48px;
       border-radius: 10px;
@@ -159,26 +133,10 @@
     button:active { transform: scale(0.95); }
     button:disabled { background: #30363d; cursor: not-allowed; }
     button svg { width: 18px; height: 18px; fill: #fff; }
-
-    .welcome {
-      text-align: center;
-      padding: 48px 24px;
-      color: #8b949e;
-    }
-    .welcome h2 {
-      font-size: 22px;
-      font-weight: 600;
-      color: #e6edf3;
-      margin-bottom: 8px;
-    }
+    .welcome { text-align: center; padding: 48px 24px; color: #8b949e; }
+    .welcome h2 { font-size: 22px; font-weight: 600; color: #e6edf3; margin-bottom: 8px; }
     .welcome p { font-size: 14px; line-height: 1.6; }
-
-    .suggestions {
-      display: flex; gap: 8px;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin-top: 20px;
-    }
+    .suggestions { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-top: 20px; }
     .suggestion {
       background: #161b22;
       border: 1px solid #30363d;
@@ -189,10 +147,7 @@
       cursor: pointer;
       transition: all 0.2s;
     }
-    .suggestion:hover {
-      border-color: #1f6feb;
-      color: #e6edf3;
-    }
+    .suggestion:hover { border-color: #1f6feb; color: #e6edf3; }
   </style>
 </head>
 <body>
@@ -264,7 +219,6 @@ function addMessage(text, role) {
   `;
   chat.appendChild(div);
   chat.scrollTop = chat.scrollHeight;
-  return div;
 }
 
 function addTyping() {
@@ -323,15 +277,3 @@ function sendSuggestion(el) {
 
 </body>
 </html>
-```
-
-**Paso 5 — Ejecuta la app**
-
-En la terminal de VS Code escribe:
-```
-python app.py
-```
-
-Vas a ver:
-```
-* Running on http://127.0.0.1:5000

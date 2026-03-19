@@ -1,12 +1,11 @@
 from dotenv import load_dotenv
 load_dotenv()
+
 from flask import Flask, render_template, request, jsonify
 import anthropic
 import os
 
 app = Flask(__name__)
-
-import os
 client = anthropic.Anthropic(api_key=os.environ.get("ANTHROPIC_API_KEY"))
 
 @app.route("/")
@@ -30,4 +29,5 @@ def chat():
     return jsonify({"response": message.content[0].text})
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 8080))
+    app.run(host="0.0.0.0", port=port, debug=False)
